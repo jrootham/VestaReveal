@@ -11,24 +11,22 @@ height = int(sys.argv[4])
 map = []
 locations = []
 
-id = 0
 for line in infile:
     text = line.split()
-    pos=[id]
-    id += 1
+    pos=[]
     for i in range(len(text)):
         pos.append(float(text[i]))
 
     map.append(pos[:])
-    locations.append(location.Location(pos[1], pos[2], pos[3]))
+    locations.append(location.Location(pos[0], pos[1], pos[2]))
 
-byLat = sorted(map, key=lambda pos: pos[1])
-byLong = sorted(map, key=lambda pos: pos[2])
+byLat = sorted(map, key=lambda pos: pos[0])
+byLong = sorted(map, key=lambda pos: pos[1])
 
-minLat = byLat[0][1];
+minLat = byLat[0][0];
 maxLat = byLat[len(byLat)-1][1];
-minLong = byLong[0][2];
-maxLong = byLong[len(byLong)-1][2];
+minLong = byLong[0][1];
+maxLong = byLong[len(byLong)-1][1];
 
 midLat = minLat + (maxLat - minLat) / 2
 midLong = minLong + (maxLong - minLong) / 2
