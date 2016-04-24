@@ -19,6 +19,16 @@ def print_file(inputfile):
             x.append(pix[i,j][0]) #just the first layer
         print str(x).strip('[]')
 
+def print_file_per_row(inputfile):
+    im = Image.open(inputfile) #Can be many different formats.
+    pix = im.load()
+    dimensions = im.size #Get the width and hight of the image for iterating over
+    width = dimensions[0]
+    height = dimensions[1]
+    # print "Width: %s, Height:%s" %(width,height)
+    for i in range(0,width):
+        for j in range(0, height):
+            print "%s %s %s" % (i,j,pix[i,j][0])
 xx = 0
 
 def trace_point(input, output, x,y,max_x,max_y):
@@ -117,8 +127,8 @@ def read_data(filename_in, filename_out, mode=8):
     f = open(filename_in,"r")
     line="xx"
     str_arra =[]
-    height = 500
-    width = 1000
+    height = 100
+    width = 100
     print "Converting ASCII input into grayscale PNG"
     if mode==8:
         output = Image.new('RGBA',(width,height))
@@ -169,5 +179,7 @@ def main(argv):
         trace_map(inputfile,outputfile,drops)
     if task == "img_to_ascii":
         print_file(inputfile)
+    if task == "img_to_rows":
+        print_file_per_row(inputfile)
 
 main(sys.argv[1:])
